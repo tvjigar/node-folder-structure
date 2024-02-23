@@ -1,7 +1,7 @@
 import app from './src/app.js';
 import config from './src/config.js';
 
-import bootstrap from './src/core/bootstrap.js';
+import main from './src/core/main.js';
 
 import { LoggerService } from './src/core/logger/index.js';
 import { MailerService } from './src/core/mailer/index.js';
@@ -9,7 +9,7 @@ import { DatabaseService } from './src/core/database/index.js';
 
 let server = null;
 
-bootstrap({
+main({
     modules: [
         MailerService,
         DatabaseService,

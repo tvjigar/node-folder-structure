@@ -36,6 +36,7 @@ export default class TokenService {
 
         const payload = {
             sub: user.id,
+            email: user.email,
             iat: created.unix(),
             exp: expires.unix(),
             role: user.role,

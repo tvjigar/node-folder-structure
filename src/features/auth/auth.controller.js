@@ -1,11 +1,8 @@
 import httpStatus from "http-status";
-
 import { AsyncUtils } from "../../shared/utilities/index.js";
-import { ErrorExceptions } from "../../core/error/index.js";
 import { TokenService } from "../../core/token/index.js";
-import { MailerService } from "../../core/mailer/index.js";
 import { UserService } from "../../features/user/index.js";
-import AuthExceptions from "./auth.exceptions.js";
+import { Exceptions } from "../../core/exceptions/index.js";
 
 /**
  * Authentication Controller
@@ -50,13 +47,13 @@ export default class AuthController {
     const userDoc = await UserService.getUserByEmail(data.email);
 
     if (!userDoc) {
-      throw AuthExceptions.EMAIL_PASSWORD_WRONG(res);
+      throw Exceptions.EMAIL_PASSWORD_WRONG(res);
     }
 
     const isPasswordMatch = await userDoc.isPasswordMatch(data.password);
 
     if (!isPasswordMatch) {
-      throw AuthExceptions.EMAIL_PASSWORD_WRONG(res);
+      throw Exceptions.EMAIL_PASSWORD_WRONG(res);
     }
 
     await TokenService.cleanupRefreshTokens(userDoc.id);

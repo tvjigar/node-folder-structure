@@ -1,5 +1,5 @@
 import UserModel from './user.model.js';
-import UserExceptions from './user.exceptions.js';
+import { Exceptions } from "../../core/exceptions/index.js";
 
 /**
  * User Service
@@ -52,7 +52,7 @@ export default class UserService {
         const isEmailTaken = await UserModel.isEmailTaken(data.email);
 
         if (isEmailTaken) {
-            throw UserExceptions.EMAIL_TAKEN();
+            throw Exceptions.EMAIL_TAKEN();
         }
 
         return UserModel.create(data);
@@ -70,14 +70,14 @@ export default class UserService {
         const user = await UserService.getUserById(userId);
 
         if (!user) {
-            throw UserExceptions.USER_NOT_FOUND();
+            throw Exceptions.USER_NOT_FOUND();
         }
 
         if (userData.email) {
             const isEmailTaken = await UserModel.isEmailTaken(userData.email, userId);
 
             if (isEmailTaken) {
-                throw UserExceptions.EMAIL_TAKEN();
+                throw Exceptions.EMAIL_TAKEN();
             }
         }
 
@@ -99,7 +99,7 @@ export default class UserService {
         const user = await UserService.getUserById(userId);
 
         if (!user) {
-            throw UserExceptions.USER_NOT_FOUND();
+            throw Exceptions.USER_NOT_FOUND();
         }
 
         await user.remove();

@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import { AsyncUtils } from "../../shared/utilities/index.js";
 import UserService from "./user.service.js";
-import UserExceptions from "./user.exceptions.js";
+import { Exceptions } from "../../core/exceptions/index.js";
 
 /**
  * User Controller
@@ -32,7 +32,7 @@ export default class UserController {
     const userDoc = await UserService.getUserById(req.params.userId);
 
     if (!userDoc) {
-      throw UserExceptions.USER_NOT_FOUND();
+      throw Exceptions.USER_NOT_FOUND();
     }
     res.send({
       success:true,

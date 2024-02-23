@@ -1,5 +1,4 @@
 import Joi from 'joi';
-
 import { PasswordValidator } from '../../core/validation/index.js';
 
 /**
@@ -14,7 +13,6 @@ export default class AuthValidations {
         body: Joi.object().keys({
             email: Joi.string().required().email(),
             password: Joi.string().required().custom(PasswordValidator.validateJoi),
-            // repeatPassword: Joi.string().required().valid(Joi.ref('password')),
         }),
     };
 

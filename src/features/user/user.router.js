@@ -1,11 +1,12 @@
 import express from 'express';
 import { ValidationMiddlewares } from '../../core/validation/index.js';
-import { AuthMiddlewares } from '../../features/auth/index.js';
+import { Middlewares } from '../../core/middleware/index.js';
 import UserController from './user.controller.js';
 import UserValidations from './user.validations.js';
-import UserMiddlewares from './user.middlewares.js';
+import multer from "multer";
 
 const UserRouter = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
 /**
  * Method: GET
@@ -13,8 +14,8 @@ const UserRouter = express.Router();
  */
 UserRouter.get(
     '/',
-    AuthMiddlewares.createAuthGuard(),
-    UserMiddlewares.createMountUserFromToken(),
+    Middlewares.createAuthGuard(),
+    Middlewares.createMountUserFromToken(),
     ValidationMiddlewares.createRequestDataValidator(UserValidations.getUsers),
     UserController.getUsers
 );
@@ -26,8 +27,8 @@ UserRouter.get(
  */
 UserRouter.get(
     '/:userId',
-    AuthMiddlewares.createAuthGuard(),
-    UserMiddlewares.createMountUserFromToken(),
+    Middlewares.createAuthGuard(),
+    Middlewares.createMountUserFromToken(),
     ValidationMiddlewares.createRequestDataValidator(UserValidations.getUser),
     UserController.getUser
 );
@@ -38,8 +39,8 @@ UserRouter.get(
  */
 UserRouter.patch(
     '/:userId',
-    AuthMiddlewares.createAuthGuard(),
-    UserMiddlewares.createMountUserFromToken(),
+    Middlewares.createAuthGuard(),
+    Middlewares.createMountUserFromToken(),
     ValidationMiddlewares.createRequestDataValidator(UserValidations.updateUser),
     UserController.updateUser
 );
@@ -50,8 +51,8 @@ UserRouter.patch(
  */
 UserRouter.delete(
     '/:userId',
-    AuthMiddlewares.createAuthGuard(),
-    UserMiddlewares.createMountUserFromToken(),
+    Middlewares.createAuthGuard(),
+    Middlewares.createMountUserFromToken(),
     ValidationMiddlewares.createRequestDataValidator(UserValidations.deleteUser),
     UserController.deleteUser
 );

@@ -4,11 +4,10 @@ import xss from 'xss-clean';
 import compression from 'compression';
 import cors from 'cors';
 import passport from 'passport';
-
 import { UserRouter } from './features/user/index.js';
 import { AuthRouter, PassportJwtStrategy } from './features/auth/index.js';
-
-import { ErrorController, ErrorMiddlewares } from './core/error/index.js';
+import { ErrorController } from './core/error/index.js';
+import Middlewares from './core/middleware/middleware.js';
 
 const app = express();
 
@@ -88,6 +87,6 @@ app.use('/api', router);
 app.use(ErrorController.notFound);
 
 // attach error converter
-app.use(ErrorMiddlewares.converter);
+app.use(Middlewares.errorMiddlewares);
 
 export default app;
